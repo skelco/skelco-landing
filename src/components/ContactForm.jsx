@@ -180,3 +180,5 @@ export default function ContactForm() {
     </>
   );
 }
+
+console.log(import.meta.env.VITE_WEB3FORMS_KEY);

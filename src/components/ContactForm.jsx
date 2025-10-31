@@ -27,16 +27,13 @@ export default function ContactForm() {
     if (!v.email || !emailRe.test(v.email)) e.email = "Please enter a valid email address.";
     if (!v.message || v.message.trim().length < 10) e.message = "Please add a few more details (min 10 chars).";
     return e;
-    }
+  }
 
   function handleChange(ev) {
     const { name, value } = ev.target;
     const next = { ...values, [name]: value };
     setValues(next);
-    // live-validate only touched fields
-    if (touched[name]) {
-      setErrors(validate(next));
-    }
+    if (touched[name]) setErrors(validate(next));
   }
 
   function handleBlur(ev) {
@@ -47,6 +44,7 @@ export default function ContactForm() {
 
   async function onSubmit(e) {
     e.preventDefault();
+
     const currentErrors = validate();
     setErrors(currentErrors);
     setTouched({ name: true, email: true, message: true });
@@ -56,13 +54,26 @@ export default function ContactForm() {
 
     const formEl = e.currentTarget;
     const data = new FormData(formEl);
+
     // ensure values from controlled inputs
     data.set("name", values.name);
     data.set("email", values.email);
     data.set("message", values.message);
 
-    // REQUIRED Web3Forms param from .env
-    data.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY);
+    // REQUIRED Web3Forms param from .env (guard + trim)
+    const key = import.meta.env.VITE_WEB3FORMS_KEY?.trim();
+    if (!key || key.length < 10) {
+      setStatus({
+        state: "error",
+        message: "Contact form not configured. Missing or invalid Web3Forms access key.",
+      });
+      if (import.meta.env.DEV) {
+        console.error("Missing/invalid VITE_WEB3FORMS_KEY. Add it to .env.local and Vercel env.");
+      }
+      return;
+    }
+    data.append("access_key", key);
+
     // Optional meta
     data.append("from_name", "SkelCo Website");
     data.append("subject", "New project inquiry");
@@ -86,9 +97,10 @@ export default function ContactForm() {
         setErrors({});
 
         // OPTIONAL: Slack webhook notification (non-blocking)
-        if (import.meta.env.VITE_SLACK_WEBHOOK_URL) {
+        const slack = import.meta.env.VITE_SLACK_WEBHOOK_URL?.trim();
+        if (slack) {
           try {
-            fetch(import.meta.env.VITE_SLACK_WEBHOOK_URL, {
+            fetch(slack, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({
@@ -98,9 +110,11 @@ export default function ContactForm() {
           } catch {}
         }
       } else {
+        if (import.meta.env.DEV) console.error("Web3Forms error:", res);
         setStatus({ state: "error", message: res.message || "Something went wrong." });
       }
-    } catch {
+    } catch (err) {
+      if (import.meta.env.DEV) console.error("Network error:", err);
       setStatus({ state: "error", message: "Network error. Please try again." });
     }
   }
@@ -253,7 +267,6 @@ export default function ContactForm() {
                 </Button>
               </div>
 
-              {/* Optional: your fallback email */}
               {/* <p className="text-xs text-neutral-500 mt-3">Or email us: hello@skelco.com</p> */}
             </motion.div>
           </motion.div>

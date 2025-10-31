@@ -655,7 +655,7 @@ export default function AgencyLanding() {
                   retainer
                 </li>
                 <li className="flex items-center gap-2">
-                  <Star className="h-4 w-4 text-yellow-400" /> Dedicated project manager • Seamless client updates
+                  <Star className="h-4 w-4 text-yellow-400" />  Dedicated PM • Slack communication
                 </li>
               </ul>
             </div>

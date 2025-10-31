@@ -10,7 +10,7 @@ const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export default function ContactForm() {
   const [status, setStatus] = useState({ state: "idle", message: "" });
   const [touched, setTouched] = useState({ name: false, email: false, message: false });
-  const [values, setValues] = useState({ name: "", email: "", message: "" });
+  const [values, setValues] = useState({ name: "", email: "", message: "", botcheck: "" });
   const [errors, setErrors] = useState({});
 
   // Auto-close success modal after 5s
@@ -50,68 +50,68 @@ export default function ContactForm() {
     setTouched({ name: true, email: true, message: true });
     if (Object.keys(currentErrors).length) return;
 
-    setStatus({ state: "loading", message: "Sending..." });
+    // Honeypot: if filled, treat as bot
+    if (values.botcheck) {
+      setStatus({ state: "error", message: "Bot detected." });
+      return;
+    }
 
-    const formEl = e.currentTarget;
-    const data = new FormData(formEl);
-
-    // ensure values from controlled inputs
-    data.set("name", values.name);
-    data.set("email", values.email);
-    data.set("message", values.message);
-
-    // REQUIRED Web3Forms param from .env (guard + trim)
+    // REQUIRED Web3Forms key
     const key = import.meta.env.VITE_WEB3FORMS_KEY?.trim();
-    if (!key || key.length < 10) {
+    if (!key || key.startsWith("YOUR_") || key.length < 16) {
       setStatus({
         state: "error",
         message: "Contact form not configured. Missing or invalid Web3Forms access key.",
       });
       if (import.meta.env.DEV) {
-        console.error("Missing/invalid VITE_WEB3FORMS_KEY. Add it to .env.local and Vercel env.");
+        console.error("Missing/invalid VITE_WEB3FORMS_KEY. Add it to .env and Netlify env.");
       }
       return;
     }
-    data.append("access_key", key);
 
-    // Optional meta
-    data.append("from_name", "SkelCo Website");
-    data.append("subject", "New project inquiry");
-
-    // Honeypot (hidden checkbox)
-    if (data.get("botcheck")) {
-      setStatus({ state: "error", message: "Bot detected." });
-      return;
-    }
+    setStatus({ state: "loading", message: "Sending..." });
 
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        body: data,
-      }).then((r) => r.json());
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: key,
+          subject: "New message from Skel Co Industries",
+          from_name: values.name,      // optional but nice
+          name: values.name,           // keep both for dashboards/notifications
+          email: values.email,         // REQUIRED by Web3Forms
+          message: values.message,
+          botcheck: values.botcheck,   // must be "" for humans
+          // redirect: "https://skelcoindustries.com/thanks", // optional
+        }),
+      });
 
-      if (res.success) {
+      const data = await res.json();
+
+      if (data.success) {
         setStatus({ state: "success", message: "Thanks! We’ll get back to you shortly." });
-        setValues({ name: "", email: "", message: "" });
+        setValues({ name: "", email: "", message: "", botcheck: "" });
         setTouched({ name: false, email: false, message: false });
         setErrors({});
-
-        // OPTIONAL: Slack webhook notification (non-blocking)
-        const slack = import.meta.env.VITE_SLACK_WEBHOOK_URL?.trim();
-        if (slack) {
-          try {
-            fetch(slack, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                text: `📝 New project inquiry\n• Name: ${data.get("name")}\n• Email: ${data.get("email")}\n• Message: ${data.get("message")}`,
-              }),
-            }).catch(() => {});
-          } catch {}
-        }
       } else {
-        if (import.meta.env.DEV) console.error("Web3Forms error:", res);
-        setStatus({ state: "error", message: res.message || "Something went wrong." });
+        const m = (data.message || "").toLowerCase();
+        let friendly = data.message || "Something went wrong.";
+        if (m.includes("not confirmed") || m.includes("verify")) {
+          friendly =
+            "Your form email isn’t confirmed yet. Verify your Web3Forms account email, then try again.";
+        } else if (m.includes("domain") || m.includes("origin")) {
+          friendly =
+            "This domain isn’t allowed for the form. Add your domain(s) in Web3Forms → Allowed Domains.";
+        } else if (m.includes("access") || m.includes("key")) {
+          friendly =
+            "Access key issue. Make sure you’re using an active PUBLIC access key from Web3Forms.";
+        }
+        if (import.meta.env.DEV) console.error("Web3Forms error:", data);
+        setStatus({ state: "error", message: friendly });
       }
     } catch (err) {
       if (import.meta.env.DEV) console.error("Network error:", err);
@@ -188,8 +188,18 @@ export default function ContactForm() {
           )}
         </div>
 
-        {/* honeypot field (hidden) */}
-        <input type="checkbox" name="botcheck" className="hidden" style={{ display: "none" }} />
+        {/* Honeypot text input (hidden) — must remain empty */}
+        <input
+          type="text"
+          name="botcheck"
+          value={values.botcheck}
+          onChange={handleChange}
+          autoComplete="off"
+          tabIndex="-1"
+          className="hidden"
+          style={{ display: "none" }}
+          aria-hidden="true"
+        />
 
         <div className="md:col-span-2 flex items-center justify-between">
           <span className="text-xs text-neutral-400">React • Tailwind • Vite</span>
@@ -266,8 +276,6 @@ export default function ContactForm() {
                   Try Again
                 </Button>
               </div>
-
-              {/* <p className="text-xs text-neutral-500 mt-3">Or email us: hello@skelco.com</p> */}
             </motion.div>
           </motion.div>
         )}

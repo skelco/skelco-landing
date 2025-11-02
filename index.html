@@ -37,66 +37,76 @@
 
 
 
-    <!-- ✅ Google Analytics (GA4) + Consent Mode v2 -->
-    <script>
-      (function () {
-        const MEASUREMENT_ID = "G-XXXXXXX"; // TODO: replace with your GA4 ID
+<!-- ✅ GA4 + Consent Mode (single source of truth) -->
+<script>
+  (function () {
+    const MEASUREMENT_ID = "G-ZDWNTLVY04";
 
-        const host = location.hostname;
-        const isLocalhost = ["localhost", "127.0.0.1", "::1"].includes(host);
-        if (isLocalhost || !MEASUREMENT_ID || MEASUREMENT_ID === "G-XXXXXXX") return;
+    const host = location.hostname;
+    const isLocalhost = ["localhost", "127.0.0.1", "::1"].includes(host);
+    if (isLocalhost || !MEASUREMENT_ID) return;
 
-        const ALLOWLIST = [
-          "skelcoindustries.com",
-          "skelcoindustries.net",
-          "skelcoindustries.dev",
-          "skelco.netlify.app"
-        ];
+    const ALLOWLIST = [
+      "skelcoindustries.com",
+      "skelcoindustries.net",
+      "skelcoindustries.dev",
+      "skelco.netlify.app"
+    ];
 
-        const cookieDomain =
-          host.includes("netlify.app")
-            ? "auto"
-            : (ALLOWLIST.find((d) => host === d || host.endsWith("." + d)) || "auto");
+    const cookieDomain =
+      host.includes("netlify.app")
+        ? "auto"
+        : (ALLOWLIST.find((d) => host === d || host.endsWith("." + d)) || "auto");
 
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){ dataLayer.push(arguments); }
-        window.gtag = gtag;
+    // ---- Consent defaults BEFORE loading gtag.js
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    window.gtag = gtag;
 
-        // Default: denied (shows consent banner to opt in)
-        gtag("consent", "default", {
-          ad_user_data: "denied",
-          ad_personalization: "denied",
-          ad_storage: "denied",
-          analytics_storage: "denied"
-        });
+    gtag("consent", "default", {
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      ad_storage: "denied",
+      analytics_storage: "denied"
+    });
 
-        window.grantAllConsent = function () {
-          gtag("consent", "update", {
-            ad_user_data: "granted",
-            ad_personalization: "granted",
-            ad_storage: "granted",
-            analytics_storage: "granted"
-          });
-        };
+    // Helpers used by your banner
+    window.grantAllConsent = function () {
+      gtag("consent", "update", {
+        ad_user_data: "granted",
+        ad_personalization: "granted",
+        ad_storage: "granted",
+        analytics_storage: "granted"
+      });
+    };
+    window.rejectConsent = function () {
+      gtag("consent", "update", {
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        ad_storage: "denied",
+        analytics_storage: "denied"
+      });
+    };
 
-        window.rejectConsent = function () {
-          gtag("consent", "update", {
-            ad_user_data: "denied",
-            ad_personalization: "denied",
-            ad_storage: "denied",
-            analytics_storage: "denied"
-          });
-        };
+    // ---- Load gtag.js AFTER defaults
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://www.googletagmanager.com/gtag/js?id=" + MEASUREMENT_ID;
+    document.head.appendChild(s);
 
-        const s = document.createElement("script");
-        s.async = true;
-        s.src = "https://www.googletagmanager.com/gtag/js?id=" + MEASUREMENT_ID;
-        document.head.appendChild(s);
+    // GA config
+    gtag("js", new Date());
+    gtag("config", MEASUREMENT_ID, { cookie_domain: cookieDomain });
+  })();
+</script>
 
-        gtag("js", new Date());
-        gtag("config", MEASUREMENT_ID, { cookie_domain: cookieDomain });
-      })();
-    </script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ZDWNTLVY04');
+</script>
 
     <!-- Search Console / Bing / Yandex verification -->
     <meta name="google-site-verification" content="PASTE_REAL_CODE" />
@@ -175,7 +185,7 @@
   </head>
 
   <body>
-
+    <div id="root"></div>
     <!-- Consent Banner -->
 
 <div
@@ -208,6 +218,7 @@
   </div>
 </div>
 
+<script type="module" src="/src/main.jsx"></script>
 <script>
   (function () {
     const KEY = "skelco_cookie_consent"; // "granted" | "denied"
@@ -282,8 +293,7 @@
 </script>
 
 
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+  
     <script>
       (function () {
         const STORAGE_KEY = "skelco_cookie_consent"; // "granted" | "denied"
@@ -340,7 +350,7 @@
           if (rejectBtn) rejectBtn.addEventListener("click", () => setChoice("denied"));
         });
       })();
-      localStorage.removeItem("skelco_cookie_consent");
+      // localStorage.removeItem("skelco_cookie_consent");
     </script>    
   </body>
 </html>

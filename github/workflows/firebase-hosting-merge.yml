@@ -7,23 +7,15 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Use Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "20"
-
-      - name: Install
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      - name: Deploy to Firebase Hosting
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          channelId: live
-          projectId: skel-co-industries-website
+          cache: "npm"
+      - run: echo "VITE_WEB3FORMS_KEY=${{ secrets.VITE_WEB3FORMS_KEY }}" >> $GITHUB_ENV
+      - run: npm ci
+      - run: npm run build
+      - run: npm i -g firebase-tools
+      - env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        run: firebase deploy --only hosting --project skel-co-industries-website

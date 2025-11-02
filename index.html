@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <title>Skel Co Industries LLC | Web Development & Company Builder</title>
 
     <link rel="canonical" href="https://skelcoindustries.com/" />
@@ -17,46 +20,31 @@
     />
     <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#0f172a" />
+    <meta name="format-detection" content="telephone=no" />
 
+    <!-- Open Graph / Twitter -->
     <meta property="og:site_name" content="Skel Co Industries LLC" />
-    <meta name="twitter:site" content="@skelco" />
-
-    <meta
-      property="og:title"
-      content="Skel Co Industries LLC | Web Development & Company Builder"
-    />
-    <meta
-      property="og:description"
-      content="We design and build high-performance websites, apps, and brands for ambitious businesses and startups."
-    />
-    <meta
-      property="og:image"
-      content="https://skelcoindustries.com/logo.png"
-    />
+    <meta property="og:title" content="Skel Co Industries LLC | Web Development & Company Builder" />
+    <meta property="og:description" content="We design and build high-performance websites, apps, and brands for ambitious businesses and startups." />
+    <meta property="og:image" content="https://skelcoindustries.com/logo.png" />
     <meta property="og:url" content="https://skelcoindustries.com/" />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Skel Co Industries LLC | Web Development & Company Builder"
-    />
-    <meta
-      name="twitter:description"
-      content="Creative web dev & company builder powering modern brands and startups."
-    />
-    <meta
-      name="twitter:image"
-      content="https://skelcoindustries.com/logo.png"
-    />
+    <meta name="twitter:site" content="@skelco" />
+    <meta name="twitter:title" content="Skel Co Industries LLC | Web Development & Company Builder" />
+    <meta name="twitter:description" content="Creative web dev & company builder powering modern brands and startups." />
+    <meta name="twitter:image" content="https://skelcoindustries.com/logo.png" />
 
-    <!-- ✅ Google Analytics (GA4) with multi-domain + Consent Mode v2 -->
+
+
+    <!-- ✅ Google Analytics (GA4) + Consent Mode v2 -->
     <script>
       (function () {
-        const MEASUREMENT_ID = "G-XXXXXXX"; // ← your GA4 ID
+        const MEASUREMENT_ID = "G-XXXXXXX"; // TODO: replace with your GA4 ID
 
-        const host = window.location.hostname;
+        const host = location.hostname;
         const isLocalhost = ["localhost", "127.0.0.1", "::1"].includes(host);
-        if (isLocalhost) return;
+        if (isLocalhost || !MEASUREMENT_ID || MEASUREMENT_ID === "G-XXXXXXX") return;
 
         const ALLOWLIST = [
           "skelcoindustries.com",
@@ -65,16 +53,16 @@
           "skelco.netlify.app"
         ];
 
-        const cookieDomain = host.includes("netlify.app")
-          ? "auto"
-          : (ALLOWLIST.find((d) => host === d || host.endsWith("." + d)) || "auto");
+        const cookieDomain =
+          host.includes("netlify.app")
+            ? "auto"
+            : (ALLOWLIST.find((d) => host === d || host.endsWith("." + d)) || "auto");
 
         window.dataLayer = window.dataLayer || [];
-        function gtag() {
-          dataLayer.push(arguments);
-        }
+        function gtag(){ dataLayer.push(arguments); }
         window.gtag = gtag;
 
+        // Default: denied (shows consent banner to opt in)
         gtag("consent", "default", {
           ad_user_data: "denied",
           ad_personalization: "denied",
@@ -102,13 +90,11 @@
 
         const s = document.createElement("script");
         s.async = true;
-        s.src = `https://www.googletagmanager.com/gtag/js?id=${MEASUREMENT_ID}`;
+        s.src = "https://www.googletagmanager.com/gtag/js?id=" + MEASUREMENT_ID;
         document.head.appendChild(s);
 
         gtag("js", new Date());
-        gtag("config", MEASUREMENT_ID, {
-          cookie_domain: cookieDomain
-        });
+        gtag("config", MEASUREMENT_ID, { cookie_domain: cookieDomain });
       })();
     </script>
 
@@ -124,11 +110,13 @@
         "@graph": [
           {
             "@type": "WebSite",
+            "@id": "https://skelcoindustries.com/#website",
             "name": "Skel Co Industries LLC",
-            "url": "https://skelcoindustries.com",
+            "url": "https://skelcoindustries.com/",
             "inLanguage": "en",
             "publisher": {
               "@type": "Organization",
+              "@id": "https://skelcoindustries.com/#org",
               "name": "Skel Co Industries LLC",
               "logo": {
                 "@type": "ImageObject",
@@ -143,8 +131,9 @@
           },
           {
             "@type": "LocalBusiness",
+            "@id": "https://skelcoindustries.com/#localbusiness",
             "name": "Skel Co Industries LLC",
-            "url": "https://skelcoindustries.com",
+            "url": "https://skelcoindustries.com/",
             "logo": "https://skelcoindustries.com/logo.png",
             "image": "https://skelcoindustries.com/logo.png",
             "description": "Modern web development and company-building studio offering design, branding, and software development.",
@@ -157,20 +146,22 @@
             },
             "areaServed": ["United States", "Remote"],
             "telephone": "+1-480-407-7912",
-            "email": "skelcoindustries@gmail.com",
-            "openingHoursSpecification": [
-              {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-                "opens": "09:00",
-                "closes": "17:00"
-              }
-            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer support",
+              "telephone": "+1-480-407-7912",
+              "email": "skelcoindustries@gmail.com",
+              "availableLanguage": ["English"]
+            },
+            "openingHoursSpecification": [{
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+              "opens": "09:00",
+              "closes": "17:00"
+            }],
             "sameAs": [
-              "https://www.linkedin.com/company/skelco",
-              "https://github.com/skelco",
               "https://x.com/skelco",
-              "https://www.facebook.com/skelco"
+              "https://www.linkedin.com/company/skelco"
             ],
             "aggregateRating": {
               "@type": "AggregateRating",
@@ -184,27 +175,172 @@
   </head>
 
   <body>
-    <!-- Simple Consent Banner -->
-    <div
-      id="consent-banner"
-      style="position:fixed;inset:auto 0 0 0;padding:12px;display:flex;gap:8px;justify-content:center;background:#0f172a;color:#fff;z-index:9999;font:14px/1.4 system-ui"
+
+    <!-- Consent Banner -->
+
+<div
+  id="consent-banner"
+  role="dialog"
+  aria-live="polite"
+  aria-label="Cookie consent prompt"
+  class="fixed bottom-0 inset-x-0 z-[9999] flex flex-wrap items-center justify-center gap-3 px-4 py-3 bg-neutral-950 text-neutral-100 text-sm border-t border-white/10 transition duration-300 ease-out"
+>
+  <span id="consent-text" class="text-center">
+    We use cookies for analytics. Accept?
+  </span>
+
+  <div class="flex gap-2">
+    <button
+      id="consent-accept"
+      type="button"
+      class="px-3 py-1.5 rounded-md bg-indigo-500 hover:bg-indigo-400 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-400"
     >
-      <span>We use cookies for analytics. Accept?</span>
-      <button
-        onclick="grantAllConsent();this.parentElement.remove();"
-        style="padding:6px 10px;border:0;border-radius:6px;cursor:pointer"
-      >
-        Accept
-      </button>
-      <button
-        onclick="rejectConsent();this.parentElement.remove();"
-        style="padding:6px 10px;border:1px solid #fff;background:transparent;border-radius:6px;color:#fff;cursor:pointer"
-      >
-        Reject
-      </button>
-    </div>
+      Accept
+    </button>
+
+    <button
+      id="consent-reject"
+      type="button"
+      class="px-3 py-1.5 rounded-md border border-white/20 text-neutral-100 hover:bg-white/10 font-medium focus:outline-none focus:ring-2 focus:ring-white/40"
+    >
+      Reject
+    </button>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const KEY = "skelco_cookie_consent"; // "granted" | "denied"
+
+    function fadeOutAndRemove(el) {
+      if (!el) return;
+      el.style.opacity = "0";
+      el.style.transform = "translateY(100%)";
+      setTimeout(() => el.remove(), 300);
+    }
+
+    function callIfExists(name, args) {
+      try {
+        if (typeof window[name] === "function") {
+          window[name].apply(null, args || []);
+          return true;
+        }
+      } catch (_) {}
+      return false;
+    }
+
+    function updateGtagConsent(choice) {
+      // Prefer your helpers if present
+      if (choice === "granted") {
+        if (callIfExists("grantAllConsent")) return;
+      } else {
+        if (callIfExists("rejectConsent")) return;
+      }
+
+      // Fallback: call gtag directly if available
+      if (typeof window.gtag === "function") {
+        window.gtag("consent", "update", {
+          ad_user_data: choice,
+          ad_personalization: choice,
+          ad_storage: choice,
+          analytics_storage: choice
+        });
+      }
+    }
+
+    function setChoice(choice) {
+      localStorage.setItem(KEY, choice);
+      updateGtagConsent(choice);
+      fadeOutAndRemove(document.getElementById("consent-banner"));
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const banner = document.getElementById("consent-banner");
+      if (!banner) return;
+
+      // Restore prior choice
+      const saved = localStorage.getItem(KEY);
+      if (saved === "granted" || saved === "denied") {
+        updateGtagConsent(saved);
+        banner.remove();
+        return;
+      }
+
+      // Wire buttons
+      const acceptBtn = document.getElementById("consent-accept");
+      const rejectBtn = document.getElementById("consent-reject");
+
+      // Prepare animation state
+      banner.style.opacity = "1";
+      banner.style.transform = "translateY(0)";
+      banner.style.transition = "opacity .3s ease, transform .3s ease";
+
+      if (acceptBtn) acceptBtn.addEventListener("click", () => setChoice("granted"));
+      if (rejectBtn) rejectBtn.addEventListener("click", () => setChoice("denied"));
+    });
+  })();
+</script>
+
 
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      (function () {
+        const STORAGE_KEY = "skelco_cookie_consent"; // "granted" | "denied"
+    
+        function closeBanner() {
+          const banner = document.getElementById("consent-banner");
+          if (!banner) return;
+          // smooth hide
+          banner.style.transition = "opacity .3s ease, transform .3s ease";
+          banner.style.opacity = "0";
+          banner.style.transform = "translateY(100%)";
+          setTimeout(() => banner.remove(), 300);
+        }
+    
+        function safeCall(fnName) {
+          try {
+            if (typeof window[fnName] === "function") {
+              window[fnName]();
+            }
+          } catch (_) {}
+        }
+    
+        function applyConsent(choice) {
+          // Update GA4 consent if those helpers exist
+          if (choice === "granted") {
+            safeCall("grantAllConsent");
+          } else {
+            safeCall("rejectConsent");
+          }
+        }
+    
+        function setChoice(choice) {
+          localStorage.setItem(STORAGE_KEY, choice);
+          applyConsent(choice);
+          closeBanner();
+        }
+    
+        document.addEventListener("DOMContentLoaded", function () {
+          const banner = document.getElementById("consent-banner");
+          if (!banner) return;
+    
+          // If a choice was previously saved, apply it and don't show the banner
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if (saved === "granted" || saved === "denied") {
+            applyConsent(saved);
+            banner.remove();
+            return;
+          }
+    
+          const acceptBtn = document.getElementById("consent-accept");
+          const rejectBtn = document.getElementById("consent-reject");
+    
+          if (acceptBtn) acceptBtn.addEventListener("click", () => setChoice("granted"));
+          if (rejectBtn) rejectBtn.addEventListener("click", () => setChoice("denied"));
+        });
+      })();
+      localStorage.removeItem("skelco_cookie_consent");
+    </script>    
   </body>
 </html>

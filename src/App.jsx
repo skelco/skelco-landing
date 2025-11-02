@@ -148,7 +148,6 @@ const TESTIMONIALS = [
   },
 ];
 
-
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
@@ -648,14 +647,15 @@ export default function AgencyLanding() {
               </p>
               <ul className="mt-6 space-y-2 text-sm text-neutral-300">
                 <li className="flex items-center gap-2">
-                  <Star className="h-4 w-4 text-yellow-400" /> 2–6 week sprints
+                  <Star className="h-4 w-4 text-yellow-400" /> 2–6-week sprints
                 </li>
                 <li className="flex items-center gap-2">
                   <Star className="h-4 w-4 text-yellow-400" /> Fixed-bid or
                   retainer
                 </li>
                 <li className="flex items-center gap-2">
-                  <Star className="h-4 w-4 text-yellow-400" />  Dedicated PM • Slack communication
+                  <Star className="h-4 w-4 text-yellow-400" /> Dedicated PM •
+                  Slack communication
                 </li>
               </ul>
             </div>

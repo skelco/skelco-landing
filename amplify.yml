@@ -1,4 +1,4 @@
-# amplify.yml — Vite + React
+# amplify.yml â Vite + React
 version: 1
 frontend:
   phases:

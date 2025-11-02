@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../firebase"; // this runs Firebase initialization
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

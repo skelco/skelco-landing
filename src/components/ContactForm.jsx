@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, AlertTriangle } from "lucide-react";
 
+
+
+
 export default function ContactForm() {
   const [status, setStatus] = useState({ state: "idle", message: "" });
 
@@ -22,9 +25,17 @@ export default function ContactForm() {
 
     const form = e.currentTarget;
     const data = new FormData(form);
+
+    // Required Web3Forms fields
     data.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY);
     data.append("from_name", "SkelCo Website");
     data.append("subject", "New project inquiry");
+
+    // ✅ Hard-coded email → YOU receive submissions
+    data.append("email_to", "skelcoindustries@gmail.com");
+
+    // Let you reply to the user directly
+    data.append("replyto", data.get("email"));
 
     // Honeypot
     if (data.get("botcheck")) {
@@ -83,7 +94,7 @@ export default function ContactForm() {
           />
         </div>
 
-        {/* honeypot field */}
+        {/* honeypot */}
         <input type="checkbox" name="botcheck" className="hidden" style={{ display: "none" }} />
 
         <div className="md:col-span-2 flex items-center justify-between">
@@ -97,15 +108,19 @@ export default function ContactForm() {
           </Button>
         </div>
 
-        {/* keep inline text for quick debug in dev (optional) */}
+        {/* inline debug message */}
         {status.state !== "idle" && status.state !== "success" && (
-          <div className={`md:col-span-2 text-sm ${status.state === "error" ? "text-red-400" : "text-neutral-300"}`}>
+          <div
+            className={`md:col-span-2 text-sm ${
+              status.state === "error" ? "text-red-400" : "text-neutral-300"
+            }`}
+          >
             {status.message}
           </div>
         )}
       </form>
 
-      {/* Success Modal (indigo) */}
+      {/* Success Modal */}
       <AnimatePresence>
         {status.state === "success" && (
           <motion.div
@@ -115,7 +130,8 @@ export default function ContactForm() {
           >
             <motion.div
               className="bg-neutral-900 border border-indigo-500/40 text-center rounded-2xl p-8 mx-4 max-w-sm shadow-lg"
-              initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.96, opacity: 0 }}
               transition={{ type: "spring", stiffness: 120, damping: 12 }}
             >
@@ -136,7 +152,7 @@ export default function ContactForm() {
         )}
       </AnimatePresence>
 
-      {/* Error Modal (red) */}
+      {/* Error Modal */}
       <AnimatePresence>
         {status.state === "error" && (
           <motion.div
@@ -146,7 +162,8 @@ export default function ContactForm() {
           >
             <motion.div
               className="bg-neutral-900 border border-red-500/40 text-center rounded-2xl p-8 mx-4 max-w-sm shadow-lg"
-              initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.96, opacity: 0 }}
               transition={{ type: "spring", stiffness: 120, damping: 12 }}
             >
@@ -170,9 +187,6 @@ export default function ContactForm() {
                   Try Again
                 </Button>
               </div>
-
-              {/* Optional: your fallback email */}
-              {/* <p className="text-xs text-neutral-500 mt-3">Or email us: hello@skelco.com</p> */}
             </motion.div>
           </motion.div>
         )}
@@ -180,5 +194,4 @@ export default function ContactForm() {
     </>
   );
 }
-
 

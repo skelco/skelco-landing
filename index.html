@@ -2,70 +2,96 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Skel Co Industries LLC | Web Development</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Skel Co Industries LLC | Web Development & Company Builder</title>
 
     <!-- Canonical & Icons -->
-    <link rel="canonical" href="https://skelcoindustries.com/" />
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dgp57ptui/image/upload/c_fill,w_400,h_400,ar_1:1/v1761935169/two_gibbjm.png" />
+    <link rel="canonical" href="https://www.skelcoindustries.com" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://res.cloudinary.com/dgp57ptui/image/upload/c_fill,w_400,h_400,ar_1:1/v1761935169/two_gibbjm.png"
+    />
+    <!-- If you have a real apple-touch-icon, point to it here -->
     <link rel="apple-touch-icon" href="/favicon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Base SEO -->
-    <meta name="description" content="Skel Co Industries LLC is a creative web development and startup-building studio specializing in modern interfaces, apps, and brand experiences." />
+    <meta
+      name="description"
+      content="Skel Co Industries LLC is a creative web development and startup-building studio specializing in modern interfaces, apps, and brand experiences."
+    />
     <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#0f172a" />
     <meta name="format-detection" content="telephone=no" />
 
     <!-- Open Graph / Twitter -->
     <meta property="og:site_name" content="Skel Co Industries LLC" />
-    <meta property="og:title" content="Skel Co Industries LLC | Web Development & Company Builder" />
-    <meta property="og:description" content="We design and build high-performance websites, apps, and brands for ambitious businesses and startups." />
-    <meta property="og:image" content="https://skelcoindustries.com/og-image.jpg" />
-    <meta property="og:url" content="https://skelcoindustries.com/" />
+    <meta
+      property="og:title"
+      content="Skel Co Industries LLC | Web Development & Company Builder"
+    />
+    <meta
+      property="og:description"
+      content="We design and build high-performance websites, apps, and brands for ambitious businesses and startups."
+    />
+    <meta
+      property="og:image"
+      content="https://www.skelcoindustries.com/og-image.jpg"
+    />
+    <meta property="og:url" content="https://www.skelcoindustries.com" />
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Skel Co Industries LLC | Web Development & Company Builder" />
-    <meta name="twitter:description" content="Creative web dev & company builder powering modern brands and startups." />
-    <meta name="twitter:image" content="https://skelcoindustries.com/og-image.jpg" />
-    <!-- <meta name="twitter:site" content="@yourhandle"> -->
+    <meta
+      name="twitter:title"
+      content="Skel Co Industries LLC | Web Development & Company Builder"
+    />
+    <meta
+      name="twitter:description"
+      content="Creative web dev & company builder powering modern brands and startups."
+    />
+    <meta
+      name="twitter:image"
+      content="https://www.skelcoindustries.com/og-image.jpg"
+    />
+    <!-- <meta name="twitter:site" content="@yourhandle" /> -->
 
-    <!-- Search engine verifications (fill with real codes) -->
-    <meta name="google-site-verification" content="PASTE_REAL_CODE" />
-    <meta name="msvalidate.01" content="PASTE_REAL_CODE" />
-    <meta name="yandex-verification" content="PASTE_REAL_CODE" />
+    <!-- Search engine verifications (fill with your real codes or remove) -->
+    <meta name="google-site-verification" content="" />
+    <meta name="msvalidate.01" content="" />
+    <meta name="yandex-verification" content="" />
 
-    <!-- ✅ GA4 + Consent Mode (single block) -->
+    <!-- ✅ GA4 + Consent Mode -->
     <script>
       (function () {
-        // TODO: if you want, replace with import.meta.env.VITE_GA_ID via React component;
-        // keeping inline here for simplicity:
         const MEASUREMENT_ID = "G-ZDWNTLVY04";
 
         const host = location.hostname;
         const isLocalhost = ["localhost", "127.0.0.1", "::1"].includes(host);
         if (isLocalhost || !MEASUREMENT_ID) return;
 
-        const ALLOWLIST = [
-          "skelcoindustries.com"
-        ];
+        const ALLOWLIST = ["skelcoindustries.com"];
 
         const cookieDomain =
-          host.includes("netlify.app")
-            ? "auto"
-            : (ALLOWLIST.find((d) => host === d || host.endsWith("." + d)) || "auto");
+          ALLOWLIST.find((d) => host === d || host.endsWith("." + d)) ||
+          "auto";
 
         // Consent defaults BEFORE loading gtag.js
         window.dataLayer = window.dataLayer || [];
-        function gtag(){ dataLayer.push(arguments); }
+        function gtag() {
+          dataLayer.push(arguments);
+        }
         window.gtag = gtag;
 
         gtag("consent", "default", {
           ad_user_data: "denied",
           ad_personalization: "denied",
           ad_storage: "denied",
-          analytics_storage: "denied"
+          analytics_storage: "denied",
         });
 
         // Helpers called by the banner
@@ -74,7 +100,7 @@
             ad_user_data: "granted",
             ad_personalization: "granted",
             ad_storage: "granted",
-            analytics_storage: "granted"
+            analytics_storage: "granted",
           });
         };
         window.rejectConsent = function () {
@@ -82,14 +108,15 @@
             ad_user_data: "denied",
             ad_personalization: "denied",
             ad_storage: "denied",
-            analytics_storage: "denied"
+            analytics_storage: "denied",
           });
         };
 
         // Load gtag.js AFTER defaults
         const s = document.createElement("script");
         s.async = true;
-        s.src = "https://www.googletagmanager.com/gtag/js?id=" + MEASUREMENT_ID;
+        s.src =
+          "https://www.googletagmanager.com/gtag/js?id=" + MEASUREMENT_ID;
         document.head.appendChild(s);
 
         // GA config
@@ -98,39 +125,34 @@
       })();
     </script>
 
-    <!-- JSON-LD (no fake ratings) -->
+    <!-- JSON-LD -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@graph": [
           {
             "@type": "WebSite",
-            "@id": "https://skelcoindustries.com/#website",
+            "@id": "https://www.skelcoindustries.com/#website",
             "name": "Skel Co Industries LLC",
-            "url": "https://skelcoindustries.com/",
+            "url": "https://www.skelcoindustries.com",
             "inLanguage": "en",
             "publisher": {
               "@type": "Organization",
-              "@id": "https://skelcoindustries.com/#org",
+              "@id": "https://www.skelcoindustries.com/#org",
               "name": "Skel Co Industries LLC",
               "logo": {
                 "@type": "ImageObject",
-                "url": "https://skelcoindustries.com/logo.png"
+                "url": "https://www.skelcoindustries.com/logo.png"
               }
-            },
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": "https://skelcoindustries.com/search?q={query}",
-              "query-input": "required name=query"
             }
           },
           {
             "@type": "LocalBusiness",
-            "@id": "https://skelcoindustries.com/#localbusiness",
+            "@id": "https://www.skelcoindustries.com/#localbusiness",
             "name": "Skel Co Industries LLC",
-            "url": "https://skelcoindustries.com/",
-            "logo": "https://skelcoindustries.com/logo.png",
-            "image": "https://skelcoindustries.com/og-image.jpg",
+            "url": "https://www.skelcoindustries.com",
+            "logo": "https://www.skelcoindustries.com/logo.png",
+            "image": "https://www.skelcoindustries.com/og-image.jpg",
             "description": "Modern web development and company-building studio offering design, branding, and software development.",
             "founder": { "@type": "Person", "name": "Alexander Skelton" },
             "address": {
@@ -148,12 +170,20 @@
               "email": "skelcoindustries@gmail.com",
               "availableLanguage": ["English"]
             },
-            "openingHoursSpecification": [{
-              "@type": "OpeningHoursSpecification",
-              "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-              "opens": "09:00",
-              "closes": "17:00"
-            }],
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday"
+                ],
+                "opens": "09:00",
+                "closes": "17:00"
+              }
+            ],
             "sameAs": [
               "https://x.com/skelco",
               "https://www.linkedin.com/company/skelco"
@@ -163,28 +193,38 @@
       }
     </script>
 
-    <!-- Vite entry (do NOT include built /assets here) -->
+    <!-- Vite entry (dev). Vite will rewrite this to /assets/... in the built dist. -->
     <script type="module" src="/src/main.jsx"></script>
   </head>
 
   <body>
     <div id="root"></div>
 
-    <!-- Consent Banner (single, not duplicated) -->
+    <!-- Consent Banner -->
     <div
       id="consent-banner"
       role="dialog"
       aria-live="polite"
       aria-label="Cookie consent prompt"
       class="fixed bottom-0 inset-x-0 z-[9999] flex flex-wrap items-center justify-center gap-3 px-4 py-3 bg-neutral-950 text-neutral-100 text-sm border-t border-white/10 transition duration-300 ease-out"
-      style="opacity:0; transform:translateY(100%);"
+      style="opacity: 0; transform: translateY(100%);"
     >
-      <span id="consent-text" class="text-center">We use cookies for analytics. Accept?</span>
+      <span id="consent-text" class="text-center">
+        We use cookies for analytics to improve your experience. Do you accept?
+      </span>
       <div class="flex gap-2">
-        <button id="consent-accept" type="button" class="px-3 py-1.5 rounded-md bg-indigo-500 hover:bg-indigo-400 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-400">
+        <button
+          id="consent-accept"
+          type="button"
+          class="px-3 py-1.5 rounded-md bg-indigo-500 hover:bg-indigo-400 font-medium focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        >
           Accept
         </button>
-        <button id="consent-reject" type="button" class="px-3 py-1.5 rounded-md border border-white/20 text-neutral-100 hover:bg-white/10 font-medium focus:outline-none focus:ring-2 focus:ring-white/40">
+        <button
+          id="consent-reject"
+          type="button"
+          class="px-3 py-1.5 rounded-md border border-white/20 text-neutral-100 hover:bg-white/10 font-medium focus:outline-none focus:ring-2 focus:ring-white/40"
+        >
           Reject
         </button>
       </div>
@@ -194,27 +234,36 @@
       (function () {
         const KEY = "skelco_cookie_consent"; // "granted" | "denied"
 
-        function fadeIn(el){
+        function fadeIn(el) {
           el.style.transition = "opacity .3s ease, transform .3s ease";
-          requestAnimationFrame(()=>{ el.style.opacity = "1"; el.style.transform = "translateY(0)";});
+          requestAnimationFrame(() => {
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
+          });
         }
-        function fadeOutAndRemove(el){
-          if(!el) return;
+        function fadeOutAndRemove(el) {
+          if (!el) return;
           el.style.opacity = "0";
           el.style.transform = "translateY(100%)";
-          setTimeout(()=>el.remove(), 300);
+          setTimeout(() => el.remove(), 300);
         }
-        function callIfExists(name, payload){
-          try { if(typeof window[name]==="function"){ window[name](payload); return true; } } catch(_) {}
+        function callIfExists(name, payload) {
+          try {
+            if (typeof window[name] === "function") {
+              window[name](payload);
+              return true;
+            }
+          } catch (_) {}
           return false;
         }
-        function updateConsent(choice){
-          // Prefer helpers if defined by GA block
-          if(choice==="granted"){ if(callIfExists("grantAllConsent")) return; }
-          else { if(callIfExists("rejectConsent")) return; }
-          // Fallback: direct gtag call
-          if(typeof window.gtag==="function"){
-            window.gtag("consent","update",{
+        function updateConsent(choice) {
+          if (choice === "granted") {
+            if (callIfExists("grantAllConsent")) return;
+          } else {
+            if (callIfExists("rejectConsent")) return;
+          }
+          if (typeof window.gtag === "function") {
+            window.gtag("consent", "update", {
               ad_user_data: choice,
               ad_personalization: choice,
               ad_storage: choice,
@@ -222,18 +271,18 @@
             });
           }
         }
-        function setChoice(choice){
+        function setChoice(choice) {
           localStorage.setItem(KEY, choice);
           updateConsent(choice);
           fadeOutAndRemove(document.getElementById("consent-banner"));
         }
 
-        document.addEventListener("DOMContentLoaded", function(){
+        document.addEventListener("DOMContentLoaded", function () {
           const banner = document.getElementById("consent-banner");
-          if(!banner) return;
+          if (!banner) return;
 
           const saved = localStorage.getItem(KEY);
-          if(saved==="granted" || saved==="denied"){
+          if (saved === "granted" || saved === "denied") {
             updateConsent(saved);
             banner.remove();
             return;
@@ -243,8 +292,8 @@
 
           const acceptBtn = document.getElementById("consent-accept");
           const rejectBtn = document.getElementById("consent-reject");
-          if(acceptBtn) acceptBtn.addEventListener("click", ()=>setChoice("granted"));
-          if(rejectBtn) rejectBtn.addEventListener("click", ()=>setChoice("denied"));
+          if (acceptBtn) acceptBtn.addEventListener("click", () => setChoice("granted"));
+          if (rejectBtn) rejectBtn.addEventListener("click", () => setChoice("denied"));
         });
       })();
     </script>

@@ -1,7 +1,10 @@
 {
-  "name": "my-project-name",
+  "name": "skelco-landing",
   "private": true,
   "version": "0.0.0",
+  "engines": {
+    "node": ">=18"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,13 +14,11 @@
     "deploy": "npm run build"
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.936.0",
     "@tanstack/react-router": "^1.134.9",
     "framer-motion": "^12.23.24",
     "lucide-react": "^0.548.0",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "react-router-dom": "^7.9.5"
+    "react-dom": "^19.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

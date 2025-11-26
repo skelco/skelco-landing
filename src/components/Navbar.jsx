@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Link } from "@tanstack/react-router";
 // motion/AnimatePresence are used in JSX; ESLint may not detect usage in some configs
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
@@ -7,16 +6,16 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const NAV = [
-  { label: "Home", href: "/" },
-  { label: "Work", href: "/work" },
-  { label: "Services", href: "/services" },
-  { label: "Process", href: "/process" },
-  { label: "Pricing", href: "/pricing" },
-  { label: "About", href: "/about" },
-  { label: "Testimonials", href: "/testimonials" },
-  { label: "FAQ", href: "/faq" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/contact" },
+  { label: "Home", href: "#top" },
+  { label: "Work", href: "#work" },
+  { label: "Services", href: "#services" },
+  { label: "Process", href: "#process" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "About", href: "#about" },
+  { label: "Testimonials", href: "#testimonials" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Blog", href: "#blog" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -27,11 +26,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-neutral-950/70 border-b border-white/5">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Logo / Brand */}
-        <Link
-          to="/"
-          className="flex items-center gap-2"
-          onClick={closeMobile}
-        >
+        <a href="#top" className="flex items-center gap-2" onClick={(e) => { closeMobile(); e.currentTarget.blur(); }}>
           <img
             src="https://res.cloudinary.com/dgp57ptui/image/upload/v1761935049/Skel_Co_Industries_a97vxi.gif"
             alt="Skel Co Industries Logo"
@@ -40,30 +35,34 @@ export default function Navbar() {
           <span className="font-semibold tracking-tight">
             Skel Co Industries
           </span>
-        </Link>
+        </a>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-6">
           {NAV.map((n) => (
-            <Link
+            <a
               key={n.label}
-              to={n.href}
-              preload="intent"
+              href={n.href}
               className="text-sm text-neutral-300 hover:text-white transition-colors"
-              activeProps={{ className: "text-white" }}
-              onClick={closeMobile}
+              onClick={(e) => {
+                // Smooth scroll to section and close mobile menu
+                e.preventDefault();
+                const target = document.querySelector(n.href);
+                if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+                closeMobile();
+              }}
             >
               {n.label}
-            </Link>
+            </a>
           ))}
         </nav>
 
         {/* Desktop CTA */}
         <div className="hidden md:flex items-center gap-2">
           <Button className="bg-indigo-500 hover:bg-indigo-400" asChild>
-            <Link to="/contact" preload="intent">
+            <a href="#contact" className="flex items-center" onClick={(e) => { e.preventDefault(); const t = document.querySelector('#contact'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); closeMobile(); }}>
               Get a Quote
-            </Link>
+            </a>
           </Button>
         </div>
 
@@ -93,16 +92,19 @@ export default function Navbar() {
             <div className="px-4 py-4 space-y-3">
               <div className="flex flex-col">
                 {NAV.map((n) => (
-                  <Link
+                  <a
                     key={n.label}
-                    to={n.href}
-                    preload="intent"
-                    onClick={closeMobile}
+                    href={n.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const target = document.querySelector(n.href);
+                      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+                      closeMobile();
+                    }}
                     className="py-2 text-sm text-neutral-200 hover:text-white transition-colors"
-                    activeProps={{ className: "text-white" }}
                   >
                     {n.label}
-                  </Link>
+                  </a>
                 ))}
               </div>
 

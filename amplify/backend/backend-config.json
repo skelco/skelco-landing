@@ -1,1 +1,22 @@
-{}
+{
+	"function": {
+		"contactHandler": {
+			"service": "Lambda",
+			"providerPlugin": "awscloudformation",
+			"build": true,
+			"dependsOn": []
+		}
+	},
+	"api": {
+		"contactApi": {
+			"service": "API Gateway",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "contactHandler"
+				}
+			]
+		}
+	}
+}

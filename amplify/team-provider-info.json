@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-skelcolanding-dev-1f9df-authRole",
+      "UnauthRoleArn": "arn:aws:iam::326541255931:role/amplify-skelcolanding-dev-1f9df-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::326541255931:role/amplify-skelcolanding-dev-1f9df-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-skelcolanding-dev-1f9df-deployment",
+      "UnauthRoleName": "amplify-skelcolanding-dev-1f9df-unauthRole",
+      "StackName": "amplify-skelcolanding-dev-1f9df",
+      "StackId": "arn:aws:cloudformation:us-east-1:326541255931:stack/amplify-skelcolanding-dev-1f9df/8bcb6990-cac4-11f0-b9f2-0e895ccc9dd7",
+      "AmplifyAppId": "d2ngz3s2n6f7ib"
+    }
+  }
+}

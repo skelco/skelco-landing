@@ -10,6 +10,19 @@
       "StackName": "amplify-skelcolanding-dev-1f9df",
       "StackId": "arn:aws:cloudformation:us-east-1:326541255931:stack/amplify-skelcolanding-dev-1f9df/8bcb6990-cac4-11f0-b9f2-0e895ccc9dd7",
       "AmplifyAppId": "d2ngz3s2n6f7ib"
+    },
+    "categories": {
+      "function": {
+        "contactHandler": {},
+        "contactFormHandler": {
+          "deploymentBucketName": "amplify-skelcolanding-dev-1f9df-deployment",
+          "s3Key": "amplify-builds/contactFormHandler-4d48586e777056614f48-build.zip"
+        }
+      },
+      "api": {
+        "skelcolanding": {},
+        "d23v6q4iugngpq": {}
+      }
     }
   }
 }

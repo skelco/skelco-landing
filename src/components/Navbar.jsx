@@ -1,5 +1,7 @@
 import * as React from "react";
 import { Link } from "@tanstack/react-router";
+// motion/AnimatePresence are used in JSX; ESLint may not detect usage in some configs
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";

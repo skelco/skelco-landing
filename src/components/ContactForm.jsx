@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+// motion/AnimatePresence are used in JSX; ESLint may not detect usage in some configs
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, AlertTriangle } from "lucide-react";
 

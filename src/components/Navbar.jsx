@@ -114,14 +114,18 @@ export default function Navbar() {
                 className="w-full bg-indigo-500 hover:bg-indigo-400"
                 asChild
               >
-                <Link
-                  to="/contact"
-                  preload="intent"
-                  onClick={closeMobile}
+                <a
+                  href="#contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const t = document.querySelector('#contact');
+                    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    closeMobile();
+                  }}
                   className="w-full text-center"
                 >
                   Get a Quote
-                </Link>
+                </a>
               </Button>
             </div>
           </motion.div>

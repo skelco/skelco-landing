@@ -6,6 +6,8 @@ import Services from "@/components/Services";
 import Process from "@/components/Process";
 import Team from "@/components/Team";
 import Testimonials from "@/components/Testimonials";
+import FAQ from "@/components/FAQ";
+import Blog from "@/components/Blog";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/Footer";
 
@@ -19,6 +21,8 @@ export default function AgencyLanding() {
       <Process />
       <Team />
       <Testimonials />
+      <FAQ />
+      <Blog />
       <ContactSection />
       <Footer />
     </div>

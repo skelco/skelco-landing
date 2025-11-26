@@ -67,6 +67,7 @@ export default function Navbar() {
 
         {/* Mobile menu button */}
         <button
+          type="button"
           className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-neutral-200 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           aria-label="Toggle menu"
           aria-expanded={mobileOpen}
@@ -79,14 +80,15 @@ export default function Navbar() {
 
       {/* Mobile slide-down menu */}
       <AnimatePresence>
-        {mobileOpen && (
+          {mobileOpen && (
           <motion.div
             id="mobile-menu"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden border-t border-white/5 bg-neutral-950/90 backdrop-blur"
+            className="md:hidden absolute left-0 right-0 top-full z-40 border-t border-white/5 bg-neutral-950/90 backdrop-blur"
+            style={{ willChange: "height, opacity" }}
           >
             <div className="px-4 py-4 space-y-3">
               <div className="flex flex-col">

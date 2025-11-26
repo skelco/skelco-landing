@@ -16,7 +16,7 @@
         "contactHandler": {},
         "contactFormHandler": {
           "deploymentBucketName": "amplify-skelcolanding-dev-1f9df-deployment",
-          "s3Key": "amplify-builds/contactFormHandler-4d48586e777056614f48-build.zip"
+          "s3Key": "amplify-builds/contactFormHandler-7863475435482b583057-build.zip"
         }
       },
       "api": {

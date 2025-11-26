@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle, AlertTriangle } from "lucide-react";
 
-// ✅ Your AWS Lambda Email Endpoint
-const CONTACT_API_URL =
-  "https://5o5jhw5wj2sqcgqycp3c4u5zgy0gmlzk.lambda-url.us-east-1.on.aws/";
+// Contact endpoint: set `VITE_CONTACT_API_URL` in your environment to a Formspree endpoint
+// Example: VITE_CONTACT_API_URL=https://formspree.io/f/yourFormId
+const CONTACT_API_URL = import.meta.env.VITE_CONTACT_API_URL || "https://formspree.io/f/yourFormId";
 
 export default function ContactForm() {
   const [status, setStatus] = useState({ state: "idle", message: "" });
@@ -40,20 +40,22 @@ export default function ContactForm() {
     try {
       const res = await fetch(CONTACT_API_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({ name, email, message }),
       });
 
-      const json = await res.json();
-
-      if (res.ok && json.success) {
+      // Formspree returns 200/201 and a JSON body; other services may differ
+      if (res.ok) {
         setStatus({ state: "success", message: "Thanks! We’ll get back to you shortly." });
         form.reset();
       } else {
-        setStatus({
-          state: "error",
-          message: json.message || "Something went wrong.",
-        });
+        let text = "Something went wrong.";
+        try {
+          const json = await res.json();
+          if (json && json.error) text = json.error;
+          if (json && json.errors && json.errors.length) text = json.errors.map(e=>e.message||e).join(', ');
+        } catch {}
+        setStatus({ state: "error", message: text });
       }
     } catch {
       setStatus({
